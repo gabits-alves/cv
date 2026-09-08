@@ -875,3 +875,118 @@ section {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Print — currículo em PDF legível via Ctrl+P */
+@media print {
+    :root,
+    [data-theme="dark"] {
+        --bg-primary: #ffffff;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #ffffff;
+        --text-primary: #000000;
+        --text-secondary: #1a1a1a;
+        --text-tertiary: #333333;
+        --accent: #000000;
+        --accent-hover: #000000;
+        --accent-light: transparent;
+        --border: #999999;
+        --shadow: transparent;
+        --shadow-lg: transparent;
+        --code-bg: #ffffff;
+        --code-text: #000000;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+        font-size: 11pt;
+        line-height: 1.4;
+    }
+
+    /* Fora da impressão: navegação, controles e enfeites */
+    .nav,
+    .theme-toggle,
+    .hero-cta,
+    .hero-visual,
+    .hero-badge,
+    .footer {
+        display: none !important;
+    }
+
+    section {
+        padding: 0.6rem 0 !important;
+    }
+
+    .hero {
+        min-height: 0 !important;
+        padding-top: 0 !important;
+        display: block !important;
+    }
+
+    .hero .container,
+    .about-content {
+        display: block !important;
+    }
+
+    /* Sem animações de entrada no papel */
+    .hero-content,
+    .hero-visual,
+    .timeline-item,
+    .animate-on-scroll {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .timeline {
+        padding-left: 0;
+    }
+
+    .timeline::before,
+    .timeline-marker {
+        display: none;
+    }
+
+    /* Blocos que não podem quebrar entre páginas */
+    .timeline-item,
+    .timeline-content,
+    .detail-card,
+    .skill-category,
+    .education-item,
+    .language-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none !important;
+        border-color: #999 !important;
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: underline;
+    }
+
+    /* URLs expandidas em links cujo texto não é a própria URL */
+    a[href^="http"]:not(.contact-link):not(.nav-logo)::after {
+        content: " (" attr(href) ")";
+        font-size: 0.85em;
+        color: #333;
+        word-break: break-all;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .contact {
+        text-align: left;
+    }
+
+    .contact-links {
+        justify-content: flex-start;
+    }
+}
