@@ -115,16 +115,18 @@ if (codeElement) {
     // The code block is already displayed, but we could add a typing effect here if desired
 }
 
-// Add subtle parallax effect to hero section
+// Add subtle parallax effect to hero section (skipped when reduced motion is requested)
 const hero = document.querySelector('.hero');
 const heroVisual = document.querySelector('.hero-visual');
 
-window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    if (heroVisual && scrolled < window.innerHeight) {
-        heroVisual.style.transform = `translateY(${scrolled * 0.1}px)`;
-    }
-});
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        if (heroVisual && scrolled < window.innerHeight) {
+            heroVisual.style.transform = `translateY(${scrolled * 0.1}px)`;
+        }
+    });
+}
 
 // Console Easter egg
 console.log('%c👋 Hello, curious developer!', 'font-size: 16px; font-weight: bold;');
