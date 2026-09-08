@@ -876,6 +876,189 @@ section {
     transform: translateY(0);
 }
 
+/* Portfolio Section */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.portfolio-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    transition: all var(--transition-fast);
+}
+
+.portfolio-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.portfolio-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.portfolio-tool {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+}
+
+.portfolio-card ul {
+    list-style: none;
+    margin-bottom: var(--spacing-sm);
+}
+
+.portfolio-card li {
+    position: relative;
+    padding-left: var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.portfolio-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+.portfolio-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.portfolio-link:hover {
+    text-decoration: underline;
+}
+
+/* Research Section */
+.research {
+    background: var(--bg-secondary);
+}
+
+.research-item {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+}
+
+.research-item .timeline-description {
+    list-style: none;
+}
+
+.research-item .timeline-description li {
+    position: relative;
+    padding-left: var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.research-item .timeline-description li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+/* Earlier career — bloco recolhido */
+.timeline-item--earlier .timeline-content {
+    padding: 0;
+}
+
+.earlier-career summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+    cursor: pointer;
+    list-style: none;
+}
+
+.earlier-career summary::-webkit-details-marker {
+    display: none;
+}
+
+.earlier-career summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+
+.earlier-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.earlier-career summary::after {
+    content: '+';
+    margin-left: auto;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.earlier-career[open] summary::after {
+    content: '–';
+}
+
+.earlier-list {
+    list-style: none;
+    padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.earlier-list li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding: var(--spacing-xs) 0;
+    border-top: 1px solid var(--border);
+}
+
+.earlier-list strong {
+    color: var(--text-primary);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .animate-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .hero-content,
+    .hero-visual,
+    .timeline-item {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
 /* Print — currículo em PDF legível via Ctrl+P */
 @media print {
     :root,
@@ -958,11 +1141,22 @@ section {
     .detail-card,
     .skill-category,
     .education-item,
-    .language-card {
+    .language-card,
+    .portfolio-card,
+    .research-item {
         break-inside: avoid;
         page-break-inside: avoid;
         box-shadow: none !important;
         border-color: #999 !important;
+    }
+
+    /* Carreira anterior sempre expandida no papel */
+    .earlier-career > *:not(summary) {
+        display: block !important;
+    }
+
+    .earlier-career summary::after {
+        content: "" !important;
     }
 
     a {
@@ -971,7 +1165,7 @@ section {
     }
 
     /* URLs expandidas em links cujo texto não é a própria URL */
-    a[href^="http"]:not(.contact-link):not(.nav-logo)::after {
+    a[href^="http"]:not(.contact-link):not(.nav-logo):not(.portfolio-link)::after {
         content: " (" attr(href) ")";
         font-size: 0.85em;
         color: #333;
